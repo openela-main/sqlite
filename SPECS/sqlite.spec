@@ -10,7 +10,7 @@
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: Public Domain
 Group: Applications/Databases
 URL: http://www.sqlite.org/
@@ -104,6 +104,7 @@ Patch37: sqlite-3.26.0-CVE-2022-35737.patch
 # Fix for CVE-2020-24736
 # https://www.sqlite.org/src/info/579b66eaa0816561
 Patch38: sqlite-3.26.0-CVE-2020-24736.patch
+Patch39: sqlite-3.34.1-CVE-2023-7104.patch
 
 BuildRequires: ncurses-devel readline-devel glibc-devel
 BuildRequires: autoconf
@@ -200,43 +201,44 @@ This package contains the analysis program for %{name}.
 
 %prep
 %setup -q -a1 -n %{name}-src-%{realver}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch6 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 6 -p1
 %ifarch %{ix86}
-%patch7 -p1
+%patch -P 7 -p1
 %endif
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
-%patch21 -p1
-%patch22 -p1
-%patch23 -p1
-%patch24 -p1
-%patch25 -p1
-%patch26 -p1
-%patch27 -p1
-%patch28 -p1
-%patch29 -p1
-%patch30 -p1
-%patch31 -p1
-%patch34 -p1
-%patch35 -p1
-%patch36 -p1
-%patch37 -p1
-%patch38 -p1
+%patch -P 8 -p1
+%patch -P 9 -p1
+%patch -P 10 -p1
+%patch -P 11 -p1
+%patch -P 12 -p1
+%patch -P 13 -p1
+%patch -P 14 -p1
+%patch -P 15 -p1
+%patch -P 16 -p1
+%patch -P 17 -p1
+%patch -P 18 -p1
+%patch -P 19 -p1
+%patch -P 20 -p1
+%patch -P 21 -p1
+%patch -P 22 -p1
+%patch -P 23 -p1
+%patch -P 24 -p1
+%patch -P 25 -p1
+%patch -P 26 -p1
+%patch -P 27 -p1
+%patch -P 28 -p1
+%patch -P 29 -p1
+%patch -P 30 -p1
+%patch -P 31 -p1
+%patch -P 34 -p1
+%patch -P 35 -p1
+%patch -P 36 -p1
+%patch -P 37 -p1
+%patch -P 38 -p1
+%patch -P 39 -p1
 
 
 # Remove backup-file
@@ -338,6 +340,9 @@ make test
 %endif
 
 %changelog
+* Wed Jan 03 2024 Zuzana Miklankova <zmiklank@redhat.com> - 3.26.0-19
+- Fixed CVE-2023-7104
+
 * Fri Apr 14 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.26.0-18
 - Fixed CVE-2022-24736
 
