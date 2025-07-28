@@ -12,7 +12,7 @@
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: Public Domain
 URL: http://www.sqlite.org/
 
@@ -36,6 +36,7 @@ Patch6: sqlite-3.34.1-covscan-rhel-9.patch
 # Fixed CVE-2022-35737
 Patch7: sqlite-3.26.0-CVE-2022-35737.patch
 Patch8: sqlite-3.34.1-CVE-2023-7104.patch
+Patch9: sqlite-3.34.1-CVE-2025-6965.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -147,6 +148,7 @@ This package contains the analysis program for %{name}.
 %patch -P 6 -p1
 %patch -P 7 -p1
 %patch -P 8 -p1
+%patch -P 9 -p1
 
 # Remove backup-file
 rm -f %{name}-doc-%{docver}/sqlite.css~ || :
@@ -264,6 +266,9 @@ make test
 %endif
 
 %changelog
+* Thu Jul 17 2025 Ales Nezbeda <anezbeda@redhat.com> - 3.34.1-8
+- Fixes CVE-2025-6965
+
 * Wed Jan 03 2024 Zuzana Miklankova <zmiklank@redhat.com> - 3.34.1-7
 - Fixes CVE-2023-7104
 
