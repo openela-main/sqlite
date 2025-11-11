@@ -266,7 +266,11 @@ make test
 %changelog
 * Wed Jul 16 2025 Ales Nezbeda <anezbeda@redhat.com> - 3.46.1-5
 - Fix CVE-2025-6965
-- Resolves: RHEL-103826
+- Resolves: RHEL-103827
+
+* Tue Apr 15 2025 Ales Nezbeda <anezbeda@redhat.com> - 3.46.1-4
+- Fix for CVE-2025-3277
+- Resolves: RHEL-87295
 
 * Mon Feb 3 2025 Ales Nezbeda <anezbeda@redhat.com> - 3.46.1-3
 - Enabled sqlite-session feature
