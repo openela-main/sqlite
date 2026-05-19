@@ -12,7 +12,7 @@
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: Public Domain
 URL: http://www.sqlite.org/
 
@@ -163,7 +163,7 @@ export CFLAGS="$RPM_OPT_FLAGS $RPM_LD_FLAGS -DSQLITE_ENABLE_COLUMN_METADATA=1 \
                -DSQLITE_ENABLE_FTS3_PARENTHESIS=1 -DSQLITE_ENABLE_JSON1=1 \
                -DSQLITE_ENABLE_FTS4=1 \
                -DSQLITE_ENABLE_SESSION \
-               -DSQLITE_ENABLE_PREUPDATE_HOOK \
+               -DSQLITE_ENABLE_PREUPDATE_HOOK -DSQLITE_ENABLE_DESERIALIZE \
                -Wall -fno-strict-aliasing"
 %configure %{!?with_tcl:--disable-tcl} \
            --enable-fts4 \
@@ -268,6 +268,10 @@ make test
 %endif
 
 %changelog
+* Tue Mar 17 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3.34.1-10
+- Enable sqlite3_deserialize and sqlite3_serialize interfaces
+- Resolves: RHEL-155950
+
 * Thu Jul 17 2025 Ales Nezbeda <anezbeda@redhat.com> - 3.34.1-9
 - Fixes CVE-2025-6965
 
