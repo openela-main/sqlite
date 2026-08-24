@@ -12,7 +12,7 @@
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: blessing
 URL: http://www.sqlite.org/
 
@@ -23,6 +23,8 @@ Source2: http://www.sqlite.org/%{year}/sqlite-autoconf-%{realver}.tar.gz
 Patch1: sqlite-3.6.23-lemon-system-template.patch
 Patch2: sqlite-cve-2025-3277.patch
 Patch3: sqlite-cve-2025-6965.patch
+# https://sqlite.org/src/info/4a5ad516ea93
+Patch4: sqlite-cve-2026-11822-cve-2026-11824.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -128,6 +130,7 @@ This package contains the analysis program for %{name}.
 %patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 3 -p1
+%patch -P 4 -p1
 
 # The atof test is failing on the i686 architecture, when binary configured with
 # --enable-rtree option. Failing part is text->real conversion and
@@ -264,6 +267,12 @@ make test
 %endif
 
 %changelog
+* Wed Jul 29 2026 RHEL Packaging Agent <redhat-ymir-agent@redhat.com> - 3.46.1-6
+- Fixes CVE-2026-11822
+- Fixes CVE-2026-11824
+- Resolves: RHEL-218247
+- Resolves: RHEL-218282
+
 * Wed Jul 16 2025 Ales Nezbeda <anezbeda@redhat.com> - 3.46.1-5
 - Fix CVE-2025-6965
 - Resolves: RHEL-103827
