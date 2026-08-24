@@ -12,7 +12,7 @@
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: Public Domain
 URL: http://www.sqlite.org/
 
@@ -37,6 +37,8 @@ Patch6: sqlite-3.34.1-covscan-rhel-9.patch
 Patch7: sqlite-3.26.0-CVE-2022-35737.patch
 Patch8: sqlite-3.34.1-CVE-2023-7104.patch
 Patch9: sqlite-3.34.1-CVE-2025-6965.patch
+# https://sqlite.org/src/info/4a5ad516ea93
+Patch10: sqlite-3.34.1-CVE-2026-11822-CVE-2026-11824.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -149,6 +151,7 @@ This package contains the analysis program for %{name}.
 %patch -P 7 -p1
 %patch -P 8 -p1
 %patch -P 9 -p1
+%patch -P 10 -p1
 
 # Remove backup-file
 rm -f %{name}-doc-%{docver}/sqlite.css~ || :
@@ -268,6 +271,12 @@ make test
 %endif
 
 %changelog
+* Wed Jul 29 2026 RHEL Packaging Agent <redhat-ymir-agent@redhat.com> - 3.34.1-11
+- Fixes CVE-2026-11822
+- Fixes CVE-2026-11824
+- Resolves: RHEL-218247
+- Resolves: RHEL-218282
+
 * Tue Mar 17 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3.34.1-10
 - Enable sqlite3_deserialize and sqlite3_serialize interfaces
 - Resolves: RHEL-155950
