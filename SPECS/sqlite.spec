@@ -10,14 +10,14 @@
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: Public Domain
 Group: Applications/Databases
 URL: http://www.sqlite.org/
 
-Source0: http://www.sqlite.org/2017/sqlite-src-%{realver}.zip
-Source1: http://www.sqlite.org/2017/sqlite-doc-%{docver}.zip
-Source2: http://www.sqlite.org/2017/sqlite-autoconf-%{realver}.tar.gz
+Source0: http://www.sqlite.org/2018/sqlite-src-%{realver}.zip
+Source1: http://www.sqlite.org/2018/sqlite-doc-%{docver}.zip
+Source2: http://www.sqlite.org/2018/sqlite-autoconf-%{realver}.tar.gz
 # Support a system-wide lemon template
 Patch1: sqlite-3.6.23-lemon-system-template.patch
 # Shut up stupid tests depending on system settings of allowed open fd's
@@ -106,6 +106,8 @@ Patch37: sqlite-3.26.0-CVE-2022-35737.patch
 Patch38: sqlite-3.26.0-CVE-2020-24736.patch
 Patch39: sqlite-3.34.1-CVE-2023-7104.patch
 Patch40: sqlite-3.34.1-CVE-2025-6965.patch
+# https://sqlite.org/src/info/4a5ad516ea93
+Patch41: sqlite-3.26.0-CVE-2026-11822-CVE-2026-11824.patch
 
 BuildRequires: ncurses-devel readline-devel glibc-devel
 BuildRequires: autoconf
@@ -241,6 +243,7 @@ This package contains the analysis program for %{name}.
 %patch -P 38 -p1
 %patch -P 39 -p1
 %patch -P 40 -p1
+%patch -P 41 -p1
 
 
 # Remove backup-file
@@ -342,6 +345,9 @@ make test
 %endif
 
 %changelog
+* Wed Aug 12 2026 Daniel Handzus <dhandzus@redhat.com> - 3.26.0-21
+- Fixes CVE-2026-11822 and CVE-2026-11824
+
 * Thu Jul 17 2025 Ales Nezbeda <anezbeda@redhat.com> - 3.26.0-20
 - Fixes CVE-2025-6965
 
