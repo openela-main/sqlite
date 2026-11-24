@@ -10,7 +10,7 @@
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 21%{?dist}
+Release: 28%{?dist}
 License: Public Domain
 Group: Applications/Databases
 URL: http://www.sqlite.org/
@@ -108,6 +108,32 @@ Patch39: sqlite-3.34.1-CVE-2023-7104.patch
 Patch40: sqlite-3.34.1-CVE-2025-6965.patch
 # https://sqlite.org/src/info/4a5ad516ea93
 Patch41: sqlite-3.26.0-CVE-2026-11822-CVE-2026-11824.patch
+# Fix for CVE-2026-119371
+# https://sqlite.org/src/info/f54730871303e655
+# Added nNestSel field to Parse struct in sqliteInt.h (not present in 3.26.0),
+# adapted return value in withExpand to use SQLITE_ERROR instead of 2
+Patch42: sqlite-3.26.0-CVE-2026-119371.patch
+# Fix for CVE-2026-119372
+# https://www.sqlite.org/src/info/e4635c4153
+# Adapted fts3ExprIterate call (local name instead of sqlite3Fts3ExprIterate), renumbered tests
+Patch43: sqlite-3.26.0-CVE-2026-119372.patch
+# Fix for CVE-2026-119376
+# https://sqlite.org/src/info/252c0b7bf5a7
+Patch44: sqlite-3.26.0-CVE-2026-119376.patch
+# Fix for CVE-2026-119373
+# https://sqlite.org/src/info/a7f8c92f623e
+Patch45: sqlite-3.26.0-CVE-2026-119373.patch
+# Fix for CVE-2026-119375
+# https://sqlite.org/src/info/f9b4ee369557
+Patch46: sqlite-3.26.0-CVE-2026-119375.patch
+# Fix for CVE-2026-119378
+# https://www.sqlite.org/src/info/6a9e1415659f9e75
+# rtreeI.test created with only new test as the file does not exist in 3.26.0
+Patch47: sqlite-3.26.0-CVE-2026-119378.patch
+# https://sqlite.org/src/info/e21c5bc59ae6
+Patch48: sqlite-3.26.0-CVE-2026-119586.patch
+# .dump side of CVE-2026-119586: stop .dump from enabling writable_schema
+Patch49: sqlite-3.26.0-CVE-2026-119586-dump.patch
 
 BuildRequires: ncurses-devel readline-devel glibc-devel
 BuildRequires: autoconf
@@ -244,6 +270,14 @@ This package contains the analysis program for %{name}.
 %patch -P 39 -p1
 %patch -P 40 -p1
 %patch -P 41 -p1
+%patch -P 42 -p1
+%patch -P 43 -p1
+%patch -P 44 -p1
+%patch -P 45 -p1
+%patch -P 46 -p1
+%patch -P 47 -p1
+%patch -P 48 -p1
+%patch -P 49 -p1
 
 
 # Remove backup-file
@@ -345,6 +379,31 @@ make test
 %endif
 
 %changelog
+* Wed Nov 04 2026 Petr Kubat <pkubat@redhat.com> - 3.26.0-28
+- Fixes CVE-2026-119586
+
+* Sat Oct 31 2026 RHEL Packaging Agent <redhat-ymir-agent@redhat.com> - 3.26.0-27
+- CVE-2026-119378 sqlite: sqlite: Denial of Service via use-after-free
+  in R-Tree extension
+
+* Sat Oct 31 2026 RHEL Packaging Agent <redhat-ymir-agent@redhat.com> - 3.26.0-26
+- CVE-2026-119375 sqlite: sqlite: Information disclosure via undersized
+  WAL page size
+
+* Sat Oct 31 2026 RHEL Packaging Agent <redhat-ymir-agent@redhat.com> - 3.26.0-25
+- CVE-2026-119373 sqlite: sqlite: Denial of service via heap-based
+  buffer overflow in FTS5
+
+* Sat Oct 31 2026 RHEL Packaging Agent <redhat-ymir-agent@redhat.com> - 3.26.0-24
+- CVE-2026-119376 sqlite: sqlite: Denial of Service via stack exhaustion
+  from chained COLLATE operators
+
+* Sat Oct 31 2026 RHEL Packaging Agent <redhat-ymir-agent@redhat.com> - 3.26.0-23
+- CVE-2026-119372 sqlite: sqlite: Denial of Service via use-after-free in full-text search
+
+* Sat Oct 31 2026 RHEL Packaging Agent <redhat-ymir-agent@redhat.com> - 3.26.0-22
+- CVE-2026-119371 sqlite: sqlite: Denial of Service via stack exhaustion from deeply nested Common Table Expressions
+
 * Wed Aug 12 2026 Daniel Handzus <dhandzus@redhat.com> - 3.26.0-21
 - Fixes CVE-2026-11822 and CVE-2026-11824
 
